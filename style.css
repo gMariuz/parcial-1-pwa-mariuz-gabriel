@@ -20,6 +20,10 @@ h5 {
   font-weight: 400;
 }
 
+h1{
+  text-transform: uppercase;
+}
+
 #cards {
     margin-top: 2em;
 }
