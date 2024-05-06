@@ -1,5 +1,7 @@
 const contenedorTarjetas = document.getElementById("cards");
+const selecciónTarjetas = document.querySelectorAll("figure.card");
 const btnBuscar = document.getElementById("btnBuscar");
+const btnListado = document.getElementById("btnListado");
 const input = document.getElementById("input");
 const modal = document.getElementById("modalDetalle");
 
@@ -10,10 +12,10 @@ function mostrarPokemones(cant){
         buscarPokemon(i);
 }
 
-//Traer Pokemon por ID
-function buscarPokemon(id){
+//Traer Pokemon 
+function buscarPokemon(valor){
 
-    fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+    fetch(`https://pokeapi.co/api/v2/pokemon/${valor}/`)
     .then( respuesta => respuesta.json())
     .then( datos => {crearTarjetas(datos);
     });
@@ -54,10 +56,26 @@ function crearTarjetas(pokemon){
 }
 
 
-mostrarPokemones(100);
 
+//Buscar un pokemon
 btnBuscar.addEventListener('click', (e) => {
     e.preventDefault();
-    buscarPokemon(input.value);
+    contenedorTarjetas.innerHTML = '';
+    fetch(`https://pokeapi.co/api/v2/pokemon/${input.value}/`)
+    .then(response => {
+        if(response.ok){
+            buscarPokemon(input.value);
+            btnListado.disabled = false;
+        } else {
+            alert("No se encontró un pokemon que coincida con el valor ingresado");
+            btnListado.disabled = false;
+        }
+    })
+})
 
+//Traer los pokemones al presionar el botón de mostrar
+btnListado.addEventListener('click', (e) => {
+    contenedorTarjetas.innerHTML = '';
+    mostrarPokemones(100);
+    btnListado.disabled = true;
 })
