@@ -1,8 +1,10 @@
-
 const contenedorTarjetas = document.getElementById("cards");
+const btnBuscar = document.getElementById("btnBuscar");
+const input = document.getElementById("input");
+const modal = document.getElementById("modalDetalle");
 
-//Recorrer array para traer todos los pokemones
-function buscarPokemones(cant){
+//Recorrer array para traer todos los pokemones y armar las tarjetas
+function mostrarPokemones(cant){
 
     for(let i = 0; i <= cant; i++)
         buscarPokemon(i);
@@ -17,13 +19,16 @@ function buscarPokemon(id){
     });
 }
 
-//Creación de las tarjetas para los pokemones
+//Creación de la tarjeta para los pokemones
 function crearTarjetas(pokemon){
 
     
     const card = document.createElement('figure');
     card.classList.add('card');
     card.className += " card--" + pokemon.types[0].type.name;
+    card.setAttribute("data-bs-toggle","modal");
+    card.setAttribute("data-bs-target","#modalDetalle");
+    card.setAttribute("id",pokemon.id);
 
     const contImg = document.createElement('div');
     contImg.classList.add('card__image-container');
@@ -39,7 +44,6 @@ function crearTarjetas(pokemon){
     const tip = document.createElement('h3');
     tip.classList.add('card__type');
     tip.textContent = pokemon.types[0].type.name;
-
     
     caption.append(nom,tip);
     
@@ -50,4 +54,10 @@ function crearTarjetas(pokemon){
 }
 
 
-buscarPokemones(100);
+mostrarPokemones(100);
+
+btnBuscar.addEventListener('click', (e) => {
+    e.preventDefault();
+    buscarPokemon(input.value);
+
+})
