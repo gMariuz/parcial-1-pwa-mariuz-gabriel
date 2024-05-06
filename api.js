@@ -33,7 +33,7 @@ function crearTarjetas(pokemon){
 
     const caption = document.createElement('figcaption');
     caption.classList.add('card__caption');
-    const nom = document.createElement('h1');
+    const nom = document.createElement('h2');
     nom.classList.add('card__name');
     nom.textContent = pokemon.name;
     const tip = document.createElement('h3');
