@@ -1,9 +1,16 @@
 const contenedorTarjetas = document.getElementById("cards");
-const selecciónTarjetas = document.querySelectorAll("figure.card");
 const btnBuscar = document.getElementById("btnBuscar");
 const btnListado = document.getElementById("btnListado");
 const input = document.getElementById("input");
-const modal = document.getElementById("modalDetalle");
+const modalLabel = document.getElementById("exampleModalLabel");
+const modalImg = document.getElementById("img_modal");
+const modalAltura = document.getElementById("altura");
+const modalPeso = document.getElementById("peso");
+const modalHP = document.getElementById("hp");
+const modalAtk = document.getElementById("ataque");
+const modalDef = document.getElementById("defensa");
+const modalVel = document.getElementById("velocidad");
+
 
 //Recorrer array para traer todos los pokemones y armar las tarjetas
 function mostrarPokemones(cant){
@@ -24,7 +31,6 @@ function buscarPokemon(valor){
 //Creación de la tarjeta para los pokemones
 function crearTarjetas(pokemon){
 
-    
     const card = document.createElement('figure');
     card.classList.add('card');
     card.className += " card--" + pokemon.types[0].type.name;
@@ -56,7 +62,6 @@ function crearTarjetas(pokemon){
 }
 
 
-
 //Buscar un pokemon
 btnBuscar.addEventListener('click', (e) => {
     e.preventDefault();
@@ -73,9 +78,32 @@ btnBuscar.addEventListener('click', (e) => {
     })
 })
 
+
 //Traer los pokemones al presionar el botón de mostrar
 btnListado.addEventListener('click', (e) => {
     contenedorTarjetas.innerHTML = '';
     mostrarPokemones(100);
     btnListado.disabled = true;
 })
+
+
+//Mostrar detalle del pokemon seleccionado (modal)
+contenedorTarjetas.addEventListener('click', (ep) => {
+    
+    const poke = ep.explicitOriginalTarget.offsetParent; //Acá está el id del pokemon seleccionado
+    const id = poke.id;
+    fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+    .then( response => response.json())
+    .then( data => {
+        modalLabel.innerText = data.name;
+        modalImg.src = data.sprites.other['official-artwork'].front_default;
+        modalAltura.innerText = "Altura: " + Math.round(data.height * 2.54) + " cm";
+        modalPeso.innerText = "Peso: " + Math.round(data.weight / 2.205) + " kg";
+        modalHP.innerText = "HP: " + data.stats[0].base_stat;
+        modalAtk.innerText = "Ataque: " + data.stats[1].base_stat;
+        modalDef.innerText = "Defensa: " + data.stats[2].base_stat;
+        modalVel.innerText = "Velocidad: " + data.stats[5].base_stat;
+    })
+})
+
+

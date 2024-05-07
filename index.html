@@ -21,10 +21,10 @@
     <h1> Parcial #01 - Consumo de una API </h1>
 
     
-    <nav class="navbar"  style="background-color: #b6c7ff00;margin-top: 16px;margin-bottom: 48px;">
+    <nav class="navbar">
       <div class="container-fluid">
         <form class="d-flex" role="search">
-          <input id="input" class="form-control me-2" type="search" placeholder="Buscar un Pokemon" aria-label="Search">
+          <input id="input" autocomplete="off" class="form-control me-2" type="search" placeholder="Buscar un Pokemon" aria-label="Search">
           <button id="btnBuscar" class="btn btn-outline-success" type="submit">Buscar</button>
         </form>
       </div>
@@ -39,7 +39,7 @@
 
     </div>
 
-    <!-- Modal -->
+    <!-- Modal que aparece al presionar sobre una tarjeta -->
     <div class="modal fade" id="modalDetalle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -48,9 +48,15 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            ...
+            <h2>Características</h2>
+            <p id="altura"></p>
+            <p id="peso"></p>
+            <p id="hp"></p>
+            <p id="ataque"></p>
+            <p id="defensa"></p>
+            <p id="velocidad"></p>
             <div >
-              <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/2.png">   
+              <img id="img_modal" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/2.png">   
             </div>
           </div>
         </div>
